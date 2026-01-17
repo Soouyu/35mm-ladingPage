@@ -1,0 +1,229 @@
+@layer components {
+  /* =========================
+     CONTACT 35MM
+     ========================= */
+
+  .contact35 {
+    position: relative;
+    padding: 110px 0;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(69,182,137,.18), transparent 55%),
+      radial-gradient(circle at 80% 30%, rgba(166,198,127,.18), transparent 55%),
+      linear-gradient(180deg, #f7faf8, #eef4f0);
+  }
+
+  /* ===== FLOATING BLOBS ===== */
+  .contact35-float {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .45;
+    animation: floatSlow 14s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  .contact35-float-a {
+    background: #45b689;
+    top: -120px;
+    left: -120px;
+  }
+
+  .contact35-float-b {
+    background: #a6c67f;
+    bottom: -160px;
+    right: -120px;
+    animation-delay: 3s;
+  }
+
+  .contact35-float-c {
+    background: #436865;
+    top: 40%;
+    right: -160px;
+    animation-delay: 6s;
+  }
+
+  @keyframes floatSlow {
+    0%,100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-40px) translateX(30px); }
+  }
+
+  /* ===== GRID ===== */
+  .contact35-grid {
+    display: grid;
+    gap: 64px;
+  }
+
+  @media (min-width: 1024px) {
+    .contact35-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  /* ===== LEFT ===== */
+  .contact35-kicker {
+    font-weight: 900;
+    letter-spacing: .14em;
+    font-size: 12px;
+    color: #1f6f55;
+    text-transform: uppercase;
+  }
+
+  .contact35-title {
+    font-size: 52px;
+    font-weight: 950;
+    margin-top: 12px;
+    color: #0b1412;
+  }
+
+  .contact35-title span {
+    background: linear-gradient(90deg,#45b689,#a6c67f);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .contact35-sub {
+    margin-top: 16px;
+    max-width: 420px;
+    color: rgba(11,20,18,.72);
+    line-height: 1.7;
+  }
+
+  .contact35-info {
+    margin-top: 36px;
+    display: grid;
+    gap: 22px;
+  }
+
+  .contact35-infoItem {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .contact35-infoItem p {
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .contact35-infoItem span {
+    color: rgba(11,20,18,.65);
+    font-size: 14px;
+  }
+
+  .contact35-iconBox {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,.12);
+    color: #1f6f55;
+  }
+
+  /* ===== FORM CARD ===== */
+  .contact35-card {
+    background: rgba(255,255,255,.7);
+    border-radius: 28px;
+    padding: 36px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 30px 90px rgba(0,0,0,.18);
+  }
+
+  .contact35-card h3 {
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+
+  .contact35-card p {
+    font-size: 14px;
+    color: rgba(11,20,18,.65);
+    margin-bottom: 26px;
+  }
+
+  .contact35-card form {
+    display: grid;
+    gap: 16px;
+  }
+
+  .contact35-card input,
+  .contact35-card textarea {
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: rgba(255,255,255,.95);
+    outline: none;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+
+  .contact35-card input:focus,
+  .contact35-card textarea:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 3px rgba(69,182,137,.35);
+  }
+
+  .contact35-card button {
+    margin-top: 8px;
+    padding: 16px;
+    border-radius: 9999px;
+    border: none;
+    font-weight: 900;
+    background: linear-gradient(90deg,#a6c67f,#45b689,#1f6f55);
+    color: #0b1412;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 22px 60px rgba(0,0,0,.25);
+    transition: transform .25s ease;
+  }
+
+  .contact35-card button:hover {
+    transform: translateY(-2px);
+  }
+
+  /* ===== REVEAL ===== */
+  .contact35 {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+
+  .contact35-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .contact35-headBox{
+    display: inline-block;
+    padding: 18px 22px;
+    border-radius: 22px;
+    max-width: fit-content;
+
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(2,4,3,0.08);
+
+    backdrop-filter: blur(18px) saturate(1.05);
+    -webkit-backdrop-filter: blur(18px) saturate(1.05);
+
+    box-shadow:
+      0 20px 60px rgba(0,0,0,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.85);
+  }
+
+  /* Ajustes internos para que no se vea apretado */
+  .contact35-headBox .contact35-kicker{
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .contact35-headBox .contact35-title{
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,151 @@
+@layer components {
+  .whatsapp35 {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 62px;
+    height: 62px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #25d366, #1ebe5d, #128c7e);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+    cursor: pointer;
+    overflow: visible;
+
+    box-shadow:
+      0 18px 45px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+    animation: whatsappEntry .9s cubic-bezier(.22,1,.36,1) both;
+    animation-delay: .8s;
+  }
+
+  .whatsapp35:hover {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  .whatsapp35-icon {
+    width: 28px;
+    height: 28px;
+    z-index: 3;
+  }
+
+  /* =========================
+     TOOLTIP
+     ========================= */
+
+  .whatsapp35-tooltip {
+    position: absolute;
+    right: 74px;
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(2,4,3,.92);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    backdrop-filter: blur(14px);
+    box-shadow: 0 16px 45px rgba(0,0,0,.35);
+
+    opacity: 0;
+    filter: blur(6px);
+    pointer-events: none;
+
+    transition: opacity .35s ease, transform .35s ease, filter .35s ease;
+  }
+
+  /* 👉 aparece por hover */
+  .whatsapp35:hover .whatsapp35-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    filter: blur(0);
+  }
+
+  /* 👉 aparece automáticamente una vez */
+  .whatsapp35-auto .whatsapp35-tooltip {
+  animation: whatsappAutoTooltip 14s ease-in-out forwards;
+}
+
+
+ @keyframes whatsappAutoTooltip {
+  /* ⏱ espera inicial (~4s) */
+  0%, 28% {
+    opacity: 0;
+    transform: translateY(-50%) translateX(6px);
+    filter: blur(6px);
+  }
+
+  /* 👋 aparece */
+  32% {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    filter: blur(0);
+  }
+
+  /* 🟢 visible ~10s */
+  85% {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    filter: blur(0);
+  }
+
+  /* 👻 se va */
+  100% {
+    opacity: 0;
+    transform: translateY(-50%) translateX(6px);
+    filter: blur(6px);
+  }
+}
+
+  /* =========================
+     PULSE
+     ========================= */
+
+  .whatsapp35-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 9999px;
+    border: 2px solid rgba(37,211,102,.45);
+    animation: whatsappPulse 2.6s ease-out infinite;
+    z-index: 1;
+  }
+
+  .whatsapp35-ring-delay {
+    animation-delay: 1.3s;
+  }
+
+  @keyframes whatsappPulse {
+    0% { transform: scale(.85); opacity: .9; }
+    70% { transform: scale(1.25); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes whatsappEntry {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(.85);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .whatsapp35-tooltip {
+      display: none;
+    }
+  }
+}

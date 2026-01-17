@@ -1,0 +1,229 @@
+@layer components {
+  /* =========================
+     IG 35MM SECTION
+     ========================= */
+
+  .ig35 {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 0;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(69,182,137,0.18), transparent 58%),
+      radial-gradient(circle at 82% 28%, rgba(166,198,127,0.16), transparent 60%),
+      linear-gradient(180deg, #f7faf8, #eef4f0);
+  }
+
+  @media (min-width: 768px) {
+    .ig35 { padding: 96px 0; }
+  }
+
+  /* =========================
+     HEADER
+     ========================= */
+
+  .ig35-head {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 48px;
+  }
+
+  .ig35-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .ig35-title {
+    margin-top: 16px;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 950;
+    color: #020403;
+  }
+
+  @media (min-width: 640px) {
+    .ig35-title { font-size: 40px; }
+  }
+
+  @media (min-width: 1024px) {
+    .ig35-title { font-size: 52px; }
+  }
+
+  .ig35-accent {
+    background: linear-gradient(90deg,#45b689,#a6c67f,#436865);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .ig35-sub {
+    margin-top: 14px;
+    color: rgba(11,20,18,0.7);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* =========================
+     GRID
+     ========================= */
+
+  .ig35-grid {
+    display: grid;
+    gap: 42px;
+  }
+
+  @media (min-width: 1024px) {
+    .ig35-grid {
+      grid-template-columns: 5fr 7fr;
+      align-items: center;
+      gap: 64px;
+    }
+  }
+
+  /* =========================
+     IMAGE
+     ========================= */
+
+  .ig35-imageCol {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ig35-shot {
+    max-width: 360px;
+    width: 100%;
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .ig35-shot { max-width: 420px; }
+  }
+
+  .ig35-shotGlow {
+    position: absolute;
+    inset: -12px;
+    border-radius: 28px;
+    filter: blur(28px);
+    opacity: 0.35;
+    background: linear-gradient(135deg,#45b689,#a6c67f,#436865);
+  }
+
+  .ig35-shotCard {
+    position: relative;
+    background: rgba(255,255,255,0.7);
+    padding: 14px;
+    border-radius: 28px;
+    backdrop-filter: blur(18px);
+  }
+
+  .ig35-img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+  }
+
+  .ig35-floatWrap {
+    animation: ig35ImageFloat 6s ease-in-out infinite;
+  }
+
+  /* =========================
+     CARDS
+     ========================= */
+
+  .ig35-cards {
+    display: grid;
+    gap: 14px;
+  }
+
+  @media (min-width: 640px) {
+    .ig35-cards {
+      grid-template-columns: repeat(2,1fr);
+      gap: 16px;
+    }
+  }
+
+  .ig35-card {
+    background: rgba(255,255,255,0.65);
+    padding: 18px;
+    border-radius: 22px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .ig35-cardIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.8);
+    color: #1f6f55;
+  }
+
+  .ig35-cardTitle {
+    font-weight: 900;
+  }
+
+  .ig35-cardDesc {
+    font-size: 14px;
+    color: rgba(11,20,18,0.65);
+    margin-top: 4px;
+  }
+
+  /* =========================
+     CTA
+     ========================= */
+
+  .ig35-actions {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  @media (min-width: 640px) {
+    .ig35-actions {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .ig35-cta {
+    padding: 16px 20px;
+    border-radius: 18px;
+    font-weight: 950;
+    background: linear-gradient(90deg,#a6c67f,#45b689,#1f6f55);
+    color: #0b1412;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ig35-ghost {
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.6);
+  }
+
+  .ig35-tip {
+    margin-top: 14px;
+    font-size: 13px;
+    color: rgba(11,20,18,0.55);
+  }
+}
+
+/* =========================
+   KEYFRAMES
+   ========================= */
+
+@keyframes ig35ImageFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}

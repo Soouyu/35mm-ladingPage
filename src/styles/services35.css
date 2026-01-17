@@ -1,0 +1,401 @@
+@layer components {
+  /* =========================
+     SERVICES 35MM (WAVE PARALLAX)
+     ========================= */
+
+  .svc35-section{
+    position: relative;
+    padding: 96px 0;
+    overflow: hidden;
+  }
+
+  /* Fondo base (oscuro premium) */
+  .svc35-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-3;
+    background:
+      radial-gradient(circle at 16% 20%, rgba(69,182,137,0.18) 0%, transparent 58%),
+      radial-gradient(circle at 84% 28%, rgba(242,201,76,0.14) 0%, transparent 62%),
+      radial-gradient(circle at 30% 88%, rgba(67,104,101,0.14) 0%, transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 55%),
+      linear-gradient(180deg, #020403 0%, #0A0F0D 45%, #0F1412 100%);
+  }
+
+  /* =========================
+     PARALLAX WAVES
+     ========================= */
+  .svc35-parallax{
+    position:absolute;
+    inset: -140px;;
+    z-index:-2;
+    pointer-events:none;
+    overflow:hidden;
+  }
+
+.svc35-wave{
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  width: 1600px;             /* ✅ antes 1400 */
+  min-width: 180vw;          /* ✅ clave: nunca se queda corto */
+  max-width: none;           /* ✅ evita que 140vw te limite */
+  height:auto;
+  opacity: var(--waveO, 0.65);
+  filter: drop-shadow(0 22px 60px rgba(0,0,0,0.18));
+  will-change: transform;
+}
+
+
+  .svc35-waveMain{
+    top: -400px;
+    transform: translateX(-50%) translateY(var(--waveY, 0px)) rotate(var(--waveR, 0deg));
+    animation: svc35WaveDrift 9.5s ease-in-out infinite;
+  }
+
+  .svc35-waveGhost{
+    top: 120px;
+    opacity: 0.22;
+    width: 1650px;
+    filter: blur(0.2px) drop-shadow(0 18px 50px rgba(0,0,0,0.12));
+    transform: translateX(-50%) translateY(var(--waveY2, 0px)) rotate(calc(var(--waveR, 0deg) * -1));
+    animation: svc35WaveDrift2 11.5s ease-in-out infinite;
+  }
+
+  @media (max-width: 768px){
+    .svc35-section{ padding: 72px 0; }
+    .svc35-wave{ width: 1100px; }
+    .svc35-waveGhost{ width: 1300px; top: 140px; }
+  }
+
+  /* =========================
+     GRID
+     ========================= */
+  .svc35-grid{
+    display:grid;
+    gap:32px;
+  }
+  @media (min-width: 768px){
+    .svc35-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (min-width: 1024px){
+    .svc35-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+
+  /* =========================
+     HEADER
+     ========================= */
+  .svc35-kicker{
+    display:inline-flex;
+    align-items:center;
+    padding: 8px 14px;
+    border-radius:9999px;
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(0,0,0,0.10);
+    color: rgba(11,20,18,0.88);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+  }
+
+  .svc35-h2{
+    margin-top: 10px;
+    font-size: 42px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  }
+  @media (min-width: 768px){
+    .svc35-h2{ font-size: 54px; }
+  }
+
+  .gradient-text{
+    background: linear-gradient(
+      90deg,
+      rgba(69,182,137,1) 0%,
+      rgba(166,198,127,1) 40%,
+      rgba(242,201,76,1) 85%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .svc35-sub{
+    margin-top: 18px;
+    max-width: 760px;
+    margin-left:auto;
+    margin-right:auto;
+    font-size: 18px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.9);
+
+    background: linear-gradient(
+      180deg,
+      rgba(10,14,12,0.35),
+      rgba(10,14,12,0.15)
+    );
+    padding: 16px 24px;
+    border-radius: 20px;
+
+    backdrop-filter: blur(14px) saturate(1.05);
+    -webkit-backdrop-filter: blur(14px) saturate(1.05);
+
+    text-shadow:
+      0 2px 6px rgba(0,0,0,0.35),
+      0 10px 32px rgba(0,0,0,0.45);
+  }
+
+  /* =========================
+     CARD (Marea notoria + sin hover color + solo lift)
+     ========================= */
+.svc35-card{
+  position: relative;
+  border-radius: 28px;
+  padding: 28px;
+  overflow: hidden;
+ isolation: isolate; 
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.34);
+
+  /* ❌ QUITAMOS el blur aquí para que el negro NO se lave */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.20);
+
+  transition: transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s ease;
+}
+
+
+.svc35-textGlass{
+  margin-top: 12px;
+  padding: 16px 18px 18px;
+  border-radius: 18px;
+
+  /* ✅ glass más fino (menos blanco, más “lente”) */
+  background: rgba(255,255,255,0.20);
+  border: 1px solid rgba(255,255,255,0.22);
+
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+
+  position: relative;
+  z-index: 3;
+}
+
+
+
+  /* brillo fijo pro (no cambia color) */
+.svc35-card::before{
+  content:"";
+  position:absolute;
+  inset:-22%;
+  z-index:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(900px 700px at 25% 20%, rgba(47,184,129,0.38) 0%, transparent 62%),
+    radial-gradient(900px 700px at 70% 30%, rgba(24,105,84,0.30) 0%, transparent 64%),
+    radial-gradient(900px 700px at 55% 75%, rgba(255,255,255,0.08) 0%, transparent 66%),
+    linear-gradient(180deg, rgba(10,14,12,0.62), rgba(10,14,12,0.22));
+
+  /* ✅ NO filter (causa saltos) */
+  filter: none !important;
+
+  opacity: 0.92;
+  transform: translate3d(0,0,0) rotate(-7deg) scale(1.18);
+  will-change: transform;
+  backface-visibility: hidden;
+
+  /* ✅ USA TU KEYFRAME EXISTENTE */
+  animation: svc35LiquidDrift 12s ease-in-out infinite;
+}
+
+
+
+
+.svc35-divider{
+  margin-top: 16px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(69,182,137,0.35), transparent);
+  opacity: .55;
+}
+
+
+
+  /* borde vivo fijo (no hover color) */
+.svc35-card::after{
+  content:"";
+  position:absolute;
+  left:-40%;
+  right:-40%;
+  bottom:-28%;
+  height:85%;
+  z-index:1;
+  pointer-events:none;
+  transform-origin: 15% 55%;
+
+  background:
+    radial-gradient(1200px 520px at 20% 40%, rgba(69,182,137,0.55) 0%, transparent 62%),
+    radial-gradient(1200px 520px at 80% 60%, rgba(32,120,96,0.52) 0%, transparent 64%),
+    radial-gradient(900px 460px  at 55% 25%, rgba(255,255,255,0.08) 0%, transparent 66%);
+
+  /* ✅ NO filter aquí (esto era el “salto”) */
+  filter: none !important;
+
+  opacity: 0.88;
+
+  -webkit-mask-image: radial-gradient(120% 85% at 50% 0%, #000 55%, transparent 72%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+
+  transform: translate3d(0,0,0);
+  will-change: transform;
+  backface-visibility: hidden;
+
+  /* ✅ USA TU KEYFRAME EXISTENTE (solo mueve la capa) */
+  animation: svc35LiquidMove 9s ease-in-out infinite;
+}
+
+
+  /* ✅ SOLO lift (sin cambiar colores) */
+.svc35-card:hover{
+  transform: translateY(-8px);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.32),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+
+  /* Si sigues renderizando glow/sheen en el TSX, los apagamos para que no ensucien */
+  .svc35-glow,
+  .svc35-sheen{
+    display:none;
+  }
+
+  /* =========================
+     ICON
+     ========================= */
+  .svc35-iconWrap{
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom: 18px;
+
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.30);
+
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+
+    box-shadow:
+      0 14px 34px rgba(0,0,0,0.14),
+      inset 0 1px 0 rgba(255,255,255,0.65);
+
+    transition: transform .28s ease, border-color .28s ease;
+    position: relative;
+    overflow:hidden;
+  }
+
+  .svc35-iconWrap::after{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0) 60%);
+    opacity: 0.0;
+    transform: rotate(25deg);
+    transition: opacity .35s ease;
+    pointer-events:none;
+  }
+
+  .svc35-icon{
+    width: 30px;
+    height: 30px;
+    color: rgba(11,20,18,0.95);
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+  }
+
+  .svc35-card:hover .svc35-iconWrap{
+    transform: translateY(-2px) rotate(-1deg) scale(1.06);
+    border-color: rgba(69,182,137,0.35);
+  }
+  .svc35-card:hover .svc35-iconWrap::after{ opacity:.75; }
+  .svc35-card:hover .svc35-icon{ transform: rotate(-8deg) scale(1.05); }
+
+  /* =========================
+     TEXT (negro legible)
+     ========================= */
+  .svc35-title{
+    font-size:20px;
+    line-height:1.2;
+    font-weight:900;
+    color: rgba(11,20,18,0.95);
+    margin-bottom:10px;
+  }
+
+  .svc35-desc{
+    color: rgba(11,20,18,0.76);
+    line-height:1.65;
+    font-size:15px;
+    margin-bottom:16px;
+  }
+
+  .svc35-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    color: rgba(11,20,18,0.80);
+    font-size:14px;
+  }
+  .svc35-li{ display:flex; align-items:center; gap:10px; }
+
+  .svc35-dot{
+  width:7px;
+  height:7px;
+  border-radius:9999px;
+
+  background: #1f6f55; /* verde oscuro sólido */
+  box-shadow:
+    0 0 0 3px rgba(31,111,85,0.25),
+    0 2px 6px rgba(0,0,0,0.35);
+}
+
+
+  .svc35-divider{
+    margin-top: 22px;
+    height:1px;
+    width:100%;
+    background: linear-gradient(90deg, transparent, rgba(69,182,137,0.35), transparent);
+    opacity:.75;
+  }
+
+  /* REVEAL */
+  .svc35-reveal{
+    opacity:0;
+    transform: translateY(14px);
+    filter: blur(6px);
+    animation: svc35In .75s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-delay: var(--d, 0ms);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .svc35-reveal{ animation:none !important; opacity:1 !important; transform:none !important; filter:none !important; }
+    .svc35-wave{ animation:none !important; transform: translateX(-50%) !important; opacity: .25 !important; }
+  }
+}
