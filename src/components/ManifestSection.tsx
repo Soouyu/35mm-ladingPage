@@ -1,5 +1,4 @@
-// ProjectsShowcaseSection.tsx
-import { useMemo, useState, useEffect, useRef } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   Sparkles,
@@ -60,9 +59,12 @@ function useSwipe(onLeft: () => void, onRight: () => void) {
     const dy = t.clientY - startY.current;
 
     // evita swipe vertical
-    if (Math.abs(dy) > Math.abs(dx)) return;
+    if (Math.abs(dy) > Math.abs(dx)) {
+      startX.current = null;
+      startY.current = null;
+      return;
+    }
 
-    // umbral
     if (dx < -40) onLeft();
     if (dx > 40) onRight();
 
@@ -92,21 +94,35 @@ function Lightbox({
 }) {
   useEffect(() => {
     if (!open) return;
+
+    // ✅ scroll lock real
+    const root = document.documentElement;
+    const prevOverflow = root.style.overflow;
+    const prevTouch = root.style.touchAction;
+
+    root.style.overflow = "hidden";
+    root.style.touchAction = "none";
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") onPrev();
       if (e.key === "ArrowRight") onNext();
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      root.style.overflow = prevOverflow;
+      root.style.touchAction = prevTouch;
+    };
   }, [open, onClose, onPrev, onNext]);
 
   if (!open || !project) return null;
 
   return (
-    <div className="pjx-lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada del proyecto">
-      <div className="pjx-lightboxBackdrop" onClick={onClose} />
-      <div className="pjx-lightboxPanel">
+    <div className="pjx-lb" role="dialog" aria-modal="true" onClick={onClose}>
+      <div className="pjx-lbBackdrop" />
+      <div className="pjx-lbPanel" onClick={(e) => e.stopPropagation()}>
         <button className="pjx-lbClose" onClick={onClose} aria-label="Cerrar">
           <X className="pjx-ico" />
         </button>
@@ -119,10 +135,10 @@ function Lightbox({
           </div>
 
           <div className="pjx-lbMeta">
-            <span className="pjx-badge">Servicio: {project.service}</span>
-            <span className="pjx-badge">Cliente: {project.client}</span>
-            <span className="pjx-badge">Año: {project.year}</span>
-            <span className="pjx-badge">
+            <span className="pjx-chip">Servicio: {project.service}</span>
+            <span className="pjx-chip">Cliente: {project.client}</span>
+            <span className="pjx-chip">Año: {project.year}</span>
+            <span className="pjx-chip">
               {index + 1}/{total}
             </span>
           </div>
@@ -144,7 +160,7 @@ function Lightbox({
           <a className="pjx-lbCta" href="#contacto">
             Quiero un enfoque así <ArrowRight className="pjx-icoSm" />
           </a>
-          <span className="pjx-lbHint">Tip: ← → para cambiar, Esc para cerrar</span>
+          <span className="pjx-lbHint">← → cambia · Esc cierra</span>
         </div>
       </div>
     </div>
@@ -289,34 +305,28 @@ export default function ProjectsShowcaseSection() {
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lbOpen, setLbOpen] = useState(false);
   const active = projects[activeIndex];
 
   const goPrev = () => setActiveIndex((i) => (i - 1 + projects.length) % projects.length);
   const goNext = () => setActiveIndex((i) => (i + 1) % projects.length);
 
-  // teclado global
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      // si lightbox abierto, lo maneja el modal
-      if (lightboxOpen) return;
+      if (lbOpen) return;
       if (e.key === "ArrowLeft") goPrev();
       if (e.key === "ArrowRight") goNext();
-      if (e.key === "Enter") {
-        // si el usuario está navegando con teclado, Enter abre la vista
-        setLightboxOpen(true);
-      }
+      if (e.key === "Enter") setLbOpen(true);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lightboxOpen]);
+  }, [lbOpen]);
 
   const swipe = useSwipe(goNext, goPrev);
 
   return (
     <section id="proyectos" className="pjx">
-      {/* fondo premium (sin “vacíos”) */}
       <div className="pjx-bg" aria-hidden="true">
         <div className="pjx-blob pjx-blob-a" />
         <div className="pjx-blob pjx-blob-b" />
@@ -326,7 +336,6 @@ export default function ProjectsShowcaseSection() {
       </div>
 
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Header */}
         <header className="pjx-head">
           <span className="pjx-pill">
             <Sparkles className="pjx-icoSm" />
@@ -342,9 +351,82 @@ export default function ProjectsShowcaseSection() {
           </p>
         </header>
 
-        {/* Layout: 1 sección, 2 columnas sólidas, sin huecos */}
         <div className="pjx-shell">
-          {/* LEFT: texto + caso */}
+          {/* ✅ móvil: imagen primero */}
+          <main className="pjx-right">
+            <div className="pjx-mediaCard">
+              <div className="pjx-media" role="group" aria-label="Vista del proyecto" {...swipe}>
+                <img className="pjx-img" src={active.image} alt={active.imageAlt} loading="lazy" />
+                <div className="pjx-overlay" />
+
+                <div className="pjx-overlayContent">
+                  <span className="pjx-kicker">{active.overlayKicker}</span>
+                  <h4 className="pjx-ovTitle">{active.overlayTitle}</h4>
+                  <p className="pjx-ovDesc">{active.overlayDesc}</p>
+
+                  <div className="pjx-ovBadges">
+                    <span className="pjx-chip">Servicio: {active.service}</span>
+                    <span className="pjx-chip">Cliente: {active.client}</span>
+                    <span className="pjx-chip">Año: {active.year}</span>
+                  </div>
+                </div>
+
+                <div className="pjx-controls" aria-label="Controles">
+                  <button type="button" className="pjx-btn" onClick={goPrev} aria-label="Proyecto anterior">
+                    <ChevronLeft className="pjx-ico" />
+                  </button>
+
+                  <div className="pjx-progress" aria-label="Progreso">
+                    <span className="pjx-count">
+                      {clamp(activeIndex + 1, 1, projects.length)} / {projects.length}
+                    </span>
+                    <div className="pjx-dots" aria-hidden="true">
+                      {projects.map((p, i) => (
+                        <span key={p.key} className={`pjx-dot ${i === activeIndex ? "is-on" : ""}`} />
+                      ))}
+                    </div>
+                  </div>
+
+                  <button type="button" className="pjx-btn pjx-btnWide" onClick={() => setLbOpen(true)} aria-label="Expandir imagen">
+                    <Expand className="pjx-ico" />
+                    <span className="pjx-btnTxt">Expandir</span>
+                  </button>
+
+                  <button type="button" className="pjx-btn" onClick={goNext} aria-label="Proyecto siguiente">
+                    <ChevronRight className="pjx-ico" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="pjx-thumbs" role="tablist" aria-label="Seleccionar proyecto">
+                {projects.map((p, idx) => {
+                  const isActive = idx === activeIndex;
+                  return (
+                    <button
+                      key={p.key}
+                      type="button"
+                      className={`pjx-thumb ${isActive ? "is-active" : ""}`}
+                      onClick={() => setActiveIndex(idx)}
+                      role="tab"
+                      aria-selected={isActive}
+                      title={p.title}
+                    >
+                      <img className="pjx-thumbImg" src={p.image} alt={p.imageAlt} loading="lazy" />
+                      <span className="pjx-thumbLabel">
+                        <span className="pjx-thumbT">{p.title}</span>
+                        <span className="pjx-thumbS">{p.service}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <p className="pjx-footNote">
+              Si te gustó un proyecto, lo adaptamos a tu marca (sin copiar: con tu identidad).
+            </p>
+          </main>
+
           <aside className="pjx-left">
             <div className="pjx-card">
               <div className="pjx-cardTop">
@@ -418,107 +500,15 @@ export default function ProjectsShowcaseSection() {
               </div>
             </div>
           </aside>
-
-          {/* RIGHT: imagen + controles + thumbnails (NO huecos) */}
-          <main className="pjx-right">
-            <div className="pjx-mediaCard">
-              <div
-                className="pjx-media"
-                role="group"
-                aria-label="Vista del proyecto"
-                {...swipe}
-              >
-                <img className="pjx-img" src={active.image} alt={active.imageAlt} loading="lazy" />
-                <div className="pjx-overlay" />
-
-                {/* texto sobre imagen */}
-                <div className="pjx-overlayContent">
-                  <span className="pjx-kicker">{active.overlayKicker}</span>
-                  <h4 className="pjx-ovTitle">{active.overlayTitle}</h4>
-                  <p className="pjx-ovDesc">{active.overlayDesc}</p>
-
-                  <div className="pjx-ovBadges">
-                    <span className="pjx-badge">Servicio: {active.service}</span>
-                    <span className="pjx-badge">Cliente: {active.client}</span>
-                    <span className="pjx-badge">Año: {active.year}</span>
-                  </div>
-                </div>
-
-                {/* CONTROLES SOBRE LA IMAGEN (UX) */}
-                <div className="pjx-controls" aria-label="Controles">
-                  <button type="button" className="pjx-btn" onClick={goPrev} aria-label="Proyecto anterior">
-                    <ChevronLeft className="pjx-ico" />
-                  </button>
-
-                  <div className="pjx-progress" aria-label="Progreso">
-                    <span className="pjx-count">
-                      {clamp(activeIndex + 1, 1, projects.length)} / {projects.length}
-                    </span>
-                    <div className="pjx-dots" aria-hidden="true">
-                      {projects.map((p, i) => (
-                        <span
-                          key={p.key}
-                          className={`pjx-dot ${i === activeIndex ? "is-on" : ""}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="pjx-btn pjx-btnWide"
-                    onClick={() => setLightboxOpen(true)}
-                    aria-label="Expandir imagen"
-                  >
-                    <Expand className="pjx-ico" />
-                    <span className="pjx-btnTxt">Expandir</span>
-                  </button>
-
-                  <button type="button" className="pjx-btn" onClick={goNext} aria-label="Proyecto siguiente">
-                    <ChevronRight className="pjx-ico" />
-                  </button>
-                </div>
-              </div>
-
-              {/* THUMBNAILS (rellena, mejora UX, cero huecos) */}
-              <div className="pjx-thumbs" role="tablist" aria-label="Seleccionar proyecto">
-                {projects.map((p, idx) => {
-                  const isActive = idx === activeIndex;
-                  return (
-                    <button
-                      key={p.key}
-                      type="button"
-                      className={`pjx-thumb ${isActive ? "is-active" : ""}`}
-                      onClick={() => setActiveIndex(idx)}
-                      role="tab"
-                      aria-selected={isActive}
-                      aria-label={`Ver ${p.title}`}
-                      title={p.title}
-                    >
-                      <img className="pjx-thumbImg" src={p.image} alt={p.imageAlt} loading="lazy" />
-                      <span className="pjx-thumbLabel">
-                        <span className="pjx-thumbT">{p.title}</span>
-                        <span className="pjx-thumbS">{p.service}</span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <p className="pjx-footNote">
-              Si te gustó un proyecto, lo adaptamos a tu marca (sin copiar: con tu identidad).
-            </p>
-          </main>
         </div>
       </div>
 
       <Lightbox
-        open={lightboxOpen}
+        open={lbOpen}
         project={active}
         index={activeIndex}
         total={projects.length}
-        onClose={() => setLightboxOpen(false)}
+        onClose={() => setLbOpen(false)}
         onPrev={goPrev}
         onNext={goNext}
       />

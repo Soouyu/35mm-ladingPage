@@ -1,4 +1,5 @@
 // HeroSection.tsx
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -9,22 +10,57 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-const HeroSection = () => {
-  // ✅ “Dashboard” más coherente con Branding/Publicidad/Video (sin promesas raras)
-  const growthRows = [
-    { label: "Reconocimiento", value: "↑", bar: "hero35-bar-15" },
-    { label: "Engagement", value: "↑", bar: "hero35-bar-20" },
-    { label: "Consistencia", value: "↑", bar: "hero35-bar-10" },
-  ];
+type GrowthRow = {
+  label: string;
+  target: number;        // ✅ número objetivo (10, 15, 20...)
+  barClass: string;      // ✅ clase que define --barTarget
+};
 
-  // ✅ Badges alineados con lo que hacen realmente
+function useCountUpOnView(
+  targets: number[],
+  start: boolean,
+  durationMs = 1100
+) {
+  const [values, setValues] = useState<number[]>(() => targets.map(() => 0));
+
+  useEffect(() => {
+    if (!start) return;
+
+    const startTs = performance.now();
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - startTs) / durationMs);
+      // easing suave tipo “cubic”
+      const eased = 1 - Math.pow(1 - t, 3);
+
+      setValues(targets.map((n) => Math.round(n * eased)));
+
+      if (t < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  }, [start, durationMs, targets]);
+
+  return values;
+}
+
+const HeroSection = () => {
+  // ✅ ahora target numérico (igual a la barra)
+  const growthRows: GrowthRow[] = useMemo(
+    () => [
+      { label: "Reconocimiento", target: 15, barClass: "hero35-bar-15" },
+      { label: "Engagement", target: 20, barClass: "hero35-bar-20" },
+      { label: "Consistencia", target: 10, barClass: "hero35-bar-10" },
+    ],
+    []
+  );
+
   const badges = [
     { Icon: Target, text: "Branding estratégico" },
     { Icon: BarChart3, text: "Publicidad creativa" },
     { Icon: Zap, text: "Producción audiovisual" },
   ];
 
-  // ✅ Mini cards con tono más “agencia creativa”
   const miniCards = [
     {
       Icon: Megaphone,
@@ -42,6 +78,31 @@ const HeroSection = () => {
       desc: "Entregables, cronogramas y reportes entendibles.",
     },
   ];
+
+  // ✅ detecta cuando el dashboard está visible para disparar animación
+  const metricsRef = useRef<HTMLDivElement | null>(null);
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    const el = metricsRef.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPlay(true);
+          io.disconnect(); // ✅ solo una vez
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const targets = useMemo(() => growthRows.map((r) => r.target), [growthRows]);
+  const values = useCountUpOnView(targets, play, 1100);
 
   return (
     <section className="hero35-section" id="inicio">
@@ -100,13 +161,11 @@ const HeroSection = () => {
                   </span>
                 </a>
 
-                {/* ✅ mejor UX: llevar a portafolio en vez de “servicios” */}
                 <a href="#portfolio" className="hero35-btn hero35-btnGhost">
                   Ver trabajos
                 </a>
               </div>
 
-              {/* ✅ Pruebas más “defendibles” que ROI */}
               <div className="hero35-proof">
                 <div className="hero35-proofItem">
                   <span className="hero35-proofNum">100+</span>
@@ -127,7 +186,7 @@ const HeroSection = () => {
 
             {/* RIGHT (dashboard) */}
             <div className="hero35-right hero-in hero-delay-3">
-              <div className="hero35-card">
+              <div className={`hero35-card ${play ? "is-play" : ""}`}>
                 <div className="hero35-cardHead">
                   <p className="hero35-cardKicker">Nuestro enfoque</p>
                   <p className="hero35-cardTitle">
@@ -135,15 +194,26 @@ const HeroSection = () => {
                   </p>
                 </div>
 
-                <div className="hero35-metrics">
+                {/* ✅ ref aquí para disparar animación al entrar en viewport */}
+                <div className="hero35-metrics" ref={metricsRef}>
                   {growthRows.map((row, i) => (
                     <div key={i} className="hero35-metric">
                       <div className="hero35-metricTop">
                         <span className="hero35-metricLbl">{row.label}</span>
-                        <span className="hero35-metricVal">{row.value}</span>
+
+                        {/* ✅ número sincronizado con la barra */}
+                        <span className="hero35-metricVal">
+                          {values[i]}%
+                        </span>
                       </div>
+
                       <div className="hero35-track">
-                        <div className={`hero35-barFill ${row.bar}`} />
+                        {/* ✅ la barra solo anima cuando play=true */}
+                        <div
+                          className={`hero35-barFill ${row.barClass} ${
+                            play ? "is-animate" : ""
+                          }`}
+                        />
                       </div>
                     </div>
                   ))}

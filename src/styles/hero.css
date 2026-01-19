@@ -442,8 +442,11 @@
     width: 0%;
     border-radius: 9999px;
     background: linear-gradient(90deg, rgba(31,111,85,0.92), rgba(69,182,137,0.88), rgba(166,198,127,0.82));
+    will-change: width;
+  }
+  .hero35-barFill.is-animate{
     animation: hero35BarGrow 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: 1.6s;
+    animation-delay: 0.05s; /* casi instantáneo, sincroniza con el conteo */
   }
 
   .hero35-bar-10 { --barTarget: 10%; }

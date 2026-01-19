@@ -5,10 +5,9 @@
 @import "./styles//testimonial.css";
 @import "./styles/contact.css";
 @import "./styles/profile-optimization35.css";
-@import "./styles/manifest35.css";
 @import "./styles/whatsapp35.css";
 @import "./styles/hero.css";
-
+@import "./styles/manifest35.css";
 
 @tailwind base;
 @tailwind components;
