@@ -7,6 +7,7 @@
 @import "./styles/profile-optimization35.css";
 @import "./styles/manifest35.css";
 @import "./styles/whatsapp35.css";
+@import "./styles/hero.css";
 
 
 @tailwind base;
@@ -32,6 +33,48 @@
 .svc35-head{
   position: relative;
   z-index: 2;
+}
+/* ===== HERO FIX (override final) ===== */
+
+/* 1) Fuerza fondo claro (si todavía hay .hero35-base oscuro por ahí) */
+.hero35-base{
+  background: linear-gradient(180deg,#F6FFF8 0%, #EAF9F0 45%, #E7F7ED 100%) !important;
+}
+
+/* 2) Aurora clara (por si tu hero35-mesh viejo sigue) */
+.hero35-mesh{
+  opacity: .9 !important;
+  filter: blur(26px) saturate(1.15) !important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(69,182,137,0.26) 0%, transparent 55%),
+    radial-gradient(circle at 82% 22%, rgba(166,198,127,0.22) 0%, transparent 58%),
+    radial-gradient(circle at 50% 85%, rgba(255,255,255,0.85) 0%, transparent 60%) !important;
+}
+
+/* 3) Vignette: quita negro pesado */
+.hero35-vignette{
+  background: radial-gradient(circle at 50% 20%, transparent 0%, rgba(10,24,18,0.10) 75%) !important;
+}
+
+/* 4) Texto: vuelve legible (tu captura está muy oscuro) */
+.hero35-section h1,
+.hero35-section p{
+  color: rgba(10,24,18,0.92) !important;
+}
+.hero35-section p{
+  color: rgba(10,24,18,0.70) !important;
+}
+
+/* 5) Mata blur en entradas (esto es lo que te está “ensuciando” todo) */
+.hero-in{
+  animation: heroInClean 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  filter: none !important;
+}
+
+/* Reemplaza heroIn con una versión sin blur */
+@keyframes heroInClean{
+  0%   { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Título siempre legible */

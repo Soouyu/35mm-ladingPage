@@ -1,3 +1,4 @@
+// ServicesSection.tsx
 import { useEffect, useRef } from "react";
 import {
   Share2,
@@ -57,7 +58,7 @@ const services = [
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
-const ServicesSection = () => {
+export default function ServicesSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
@@ -69,6 +70,9 @@ const ServicesSection = () => {
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     if (prefersReduce) return;
 
+    const isMobile = window.matchMedia?.("(max-width: 768px)")?.matches;
+    if (isMobile) return;
+
     const onScroll = () => {
       if (rafRef.current) return;
 
@@ -77,17 +81,12 @@ const ServicesSection = () => {
 
         const rect = el.getBoundingClientRect();
         const vh = window.innerHeight || 1;
-
         const t = clamp01(1 - rect.top / vh);
 
-        const y1 = t * 80;
-        const y2 = t * 38;
-        const rot = (t - 0.5) * 1.2;
-
-        el.style.setProperty("--waveY", `${y1}px`);
-        el.style.setProperty("--waveY2", `${y2}px`);
-        el.style.setProperty("--waveR", `${rot}deg`);
-        el.style.setProperty("--waveO", `${0.55 + t * 0.25}`);
+        el.style.setProperty("--waveY", `${t * 80}px`);
+        el.style.setProperty("--waveY2", `${t * 38}px`);
+        el.style.setProperty("--waveR", `${(t - 0.5) * 1.2}deg`);
+        el.style.setProperty("--waveO", `${0.62 + t * 0.18}`);
       });
     };
 
@@ -103,49 +102,29 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section id="servicios" className="svc35-section" ref={sectionRef}>
-      {/* PARALLAX WAVES */}
-      <div
-        className="svc35-parallax"
-        aria-hidden="true"
-        data-aos="fade-up"
-        data-aos-duration="900"
-        data-aos-delay="80"
-      >
+    <section id="servicios" ref={sectionRef} className="svc35-section relative isolate">
+      <div className="svc35-parallax" aria-hidden="true">
         <img className="svc35-wave svc35-waveMain" src={wavePng} alt="" />
         <img className="svc35-wave svc35-waveGhost" src={wavePng} alt="" />
       </div>
 
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16 svc35-head">
-          <span
-            className="svc35-kicker"
-            data-aos="zoom-in"
-            data-aos-duration="700"
-          >
+      <div className="svc35-container">
+        <div className="svc35-head">
+          <span className="svc35-kicker" data-aos="zoom-in" data-aos-duration="700">
             Servicios
           </span>
 
-          <h2
-            className="svc35-h2"
-            data-aos="fade-up"
-            data-aos-delay="120"
-            data-aos-duration="900"
-          >
-            Vamos a cambiar las{" "}
-            <span className="gradient-text">reglas del juego</span>
+          <h2 className="svc35-h2" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
+            Vamos a cambiar las <span className="gradient-text">reglas del juego</span>
           </h2>
 
-          <p
-            className="svc35-sub svc35-subGlass"
-            data-aos="fade-up"
-            data-aos-delay="200"
-            data-aos-duration="900"
-          >
-            Pintamos fuera de las líneas, escribimos al revés y rompemos paradigmas.
-            Creamos marcas y productos audiovisuales digitales que trascienden y generan
-            resultados reales.
-          </p>
+          {/* ✅ Caja legible (usa clases propias para no depender de tailwind arbitrary) */}
+          <div className="svc35-subWrap" data-aos="fade-up" data-aos-delay="200" data-aos-duration="900">
+            <p className="svc35-subText">
+              Rompemos lo establecido para construir marcas con identidad, criterio y propósito.
+              Diseñamos estrategias y piezas audiovisuales que conectan, destacan y generan resultados reales.
+            </p>
+          </div>
         </div>
 
         <div className="svc35-grid">
@@ -182,6 +161,4 @@ const ServicesSection = () => {
       </div>
     </section>
   );
-};
-
-export default ServicesSection;
+}

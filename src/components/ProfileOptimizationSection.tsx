@@ -12,23 +12,23 @@ const ProfileOptimizationSection = () => {
   const items = [
     {
       icon: <Target className="w-5 h-5" />,
-      title: "Perfil que convierte",
-      desc: "Usuario, bio y CTA deben explicar en 3 segundos qué haces y para quién.",
+      title: "Bio + CTA que aclaran tu valor",
+      desc: "En 3 segundos: qué haces, para quién y qué resultado entregas.",
     },
     {
       icon: <Sparkles className="w-5 h-5" />,
-      title: "Historias destacadas",
-      desc: "Highlights como menú: servicios, casos, FAQs y testimonios.",
+      title: "Highlights como portafolio",
+      desc: "Servicios, casos, FAQs y testimonios ordenados como un menú.",
     },
     {
       icon: <LayoutGrid className="w-5 h-5" />,
-      title: "Estética gráfica",
-      desc: "Paleta + tipografías + coherencia. Marca fuerte = confianza.",
+      title: "Sistema visual coherente",
+      desc: "Paleta, tipografías y estilo: marca sólida = confianza inmediata.",
     },
     {
       icon: <MessageSquareText className="w-5 h-5" />,
       title: "Contenido con intención",
-      desc: "Educa, inspira y demuestra resultados con pruebas reales (sin spam).",
+      desc: "Educas, inspiras y demuestras con pruebas reales (sin saturar).",
     },
   ];
 
@@ -45,19 +45,19 @@ const ProfileOptimizationSection = () => {
           <div className="ig35-head">
             <span className="ig35-pill">
               <CheckCircle2 className="w-4 h-4" />
-              Checklist rápido
+              Auditoría rápida
             </span>
 
             <h2 className="ig35-title">
               Haz que tu Instagram se vea{" "}
               <span className="ig35-accent">profesional</span>
               <br />
-              y venda sin parecer spam
+              y te genere conversaciones reales
             </h2>
 
             <p className="ig35-sub">
-              Ordena tu perfil para que la gente entienda tu valor rápido,
-              confíe en tu marca y te escriba con intención de compra.
+              Ordenamos tu perfil y tu contenido para que la gente entienda tu valor rápido,
+              confíe en tu marca y te escriba con intención.
             </p>
           </div>
 
@@ -71,8 +71,9 @@ const ProfileOptimizationSection = () => {
                   <div className="ig35-shotCard">
                     <img
                       src={guiaInstagram}
-                      alt="Guía Instagram"
+                      alt="Checklist de presencia digital"
                       className="ig35-img"
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -96,18 +97,17 @@ const ProfileOptimizationSection = () => {
               {/* CTA */}
               <div className="ig35-actions">
                 <a href="#contacto" className="ig35-cta">
-                  Quiero que revisen mi perfil
+                  Quiero una auditoría rápida
                   <ArrowRight className="w-5 h-5" />
                 </a>
 
                 <a href="#servicios" className="ig35-ghost">
-                  Ver planes de marketing
+                  Ver servicios
                 </a>
               </div>
 
               <p className="ig35-tip">
-                Tip: si tu bio no responde “qué haces + para quién + resultado”,
-                estás perdiendo leads.
+                Tip: si tu bio no responde “qué haces + para quién + resultado”, estás perdiendo oportunidades.
               </p>
             </div>
           </div>
