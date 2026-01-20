@@ -23,14 +23,14 @@ const services = [
     icon: Video,
     title: "Producción Audiovisual",
     description:
-      "Creamos contenido audiovisual que vende. Reels, spots y piezas con dirección creativa y edición estratégica para destacar en feeds saturados.",
+      "Creamos contenido audiovisual pensado para vender. Reels, spots y piezas con dirección creativa y edición estratégica para destacar en feeds saturados.",
     bullets: ["Reels & Ads", "Fotografía de producto", "Guiones & edición"],
   },
   {
     icon: Share2,
     title: "Contenido & Redes",
     description:
-      "Planificamos y creamos contenido que conecta con tu audiencia. No es postear por postear: es estrategia, creatividad y consistencia.",
+      "Planificamos y creamos contenido que conecta con tu audiencia. No es postear por postear: es estrategia, creatividad y consistencia real.",
     bullets: ["Calendario de contenido", "Copy creativo", "Gestión & comunidad"],
   },
   {
@@ -44,14 +44,14 @@ const services = [
     icon: LayoutTemplate,
     title: "Diseño & Web",
     description:
-      "Diseñamos piezas y sitios que se ven premium y convierten. Cada decisión visual tiene intención estratégica.",
+      "Diseñamos piezas y sitios que se ven premium y convierten. Cada decisión visual tiene una intención estratégica clara.",
     bullets: ["Landing pages", "Creativos para ads", "UX visual"],
   },
   {
     icon: BarChart3,
     title: "Medición & Growth",
     description:
-      "Tomamos decisiones basadas en datos reales. Medimos, analizamos y escalamos lo que funciona sin adivinar.",
+      "Tomamos decisiones basadas en datos reales, no suposiciones. Medimos, analizamos y escalamos lo que funciona.",
     bullets: ["Dashboards", "KPIs reales", "Mejora continua"],
   },
 ];
@@ -102,7 +102,11 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section id="servicios" ref={sectionRef} className="svc35-section relative isolate">
+    <section
+      id="servicios"
+      ref={sectionRef}
+      className="svc35-section relative isolate"
+    >
       <div className="svc35-parallax" aria-hidden="true">
         <img className="svc35-wave svc35-waveMain" src={wavePng} alt="" />
         <img className="svc35-wave svc35-waveGhost" src={wavePng} alt="" />
@@ -110,19 +114,34 @@ export default function ServicesSection() {
 
       <div className="svc35-container">
         <div className="svc35-head">
-          <span className="svc35-kicker" data-aos="zoom-in" data-aos-duration="700">
+          <span
+            className="svc35-kicker"
+            data-aos="zoom-in"
+            data-aos-duration="700"
+          >
             Servicios
           </span>
 
-          <h2 className="svc35-h2" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
-            Vamos a cambiar las <span className="gradient-text">reglas del juego</span>
+          <h2
+            className="svc35-h2"
+            data-aos="fade-up"
+            data-aos-delay="120"
+            data-aos-duration="900"
+          >
+            Creamos marcas que cambian las{" "}
+            <span className="gradient-text">reglas del juego</span>
           </h2>
 
-          {/* ✅ Caja legible (usa clases propias para no depender de tailwind arbitrary) */}
-          <div className="svc35-subWrap" data-aos="fade-up" data-aos-delay="200" data-aos-duration="900">
+          <div
+            className="svc35-subWrap"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="900"
+          >
             <p className="svc35-subText">
-              Rompemos lo establecido para construir marcas con identidad, criterio y propósito.
-              Diseñamos estrategias y piezas audiovisuales que conectan, destacan y generan resultados reales.
+              Rompemos lo establecido para construir marcas con identidad,
+              criterio y propósito. Diseñamos estrategias y piezas audiovisuales
+              que conectan, destacan y generan resultados reales, no solo likes.
             </p>
           </div>
         </div>

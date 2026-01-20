@@ -1,0 +1,180 @@
+@layer components {
+  /* =========================================
+     TRUSTED — SECTION + HEAD (DISEÑO + TEXTO)
+     ========================================= */
+
+  .trusted35-sec{
+    position: relative;
+    padding: 72px 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Fondo premium */
+  .trusted35-bgPro{
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(900px 520px at 18% 22%, rgba(199,240,220,0.95) 0%, transparent 60%),
+      radial-gradient(980px 560px at 82% 28%, rgba(255,226,154,0.85) 0%, transparent 62%),
+      radial-gradient(820px 520px at 48% 78%, rgba(255,255,255,0.95) 0%, transparent 62%),
+      linear-gradient(180deg, #ffffff 0%, #f7fffb 40%, #f2fbf6 100%);
+  }
+
+  .trusted35-bgPro::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.75), transparent 55%);
+    pointer-events:none;
+  }
+
+  .trusted35-bgPro::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at 50% 35%, transparent 0%, rgba(10,24,18,0.08) 85%);
+    pointer-events:none;
+  }
+
+  .trusted35-headPro{
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 14px;
+  }
+
+  .trusted35-pillPro{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding: 8px 14px;
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(10,24,18,0.10);
+    color: rgba(10,24,18,0.78);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+  }
+
+  .trusted35-titlePro{
+    margin-top: 16px;
+    font-size: 28px;
+    line-height: 1.12;
+    font-weight: 950;
+    color: rgba(11,20,18,0.96);
+    letter-spacing: -0.03em;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  @media (min-width: 768px){
+    .trusted35-titlePro{ font-size: 40px; }
+  }
+
+  .trusted35-subPro{
+    margin-top: 12px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(11,20,18,0.68);
+  }
+
+  .trusted35-notePro{
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(11,20,18,0.55);
+    padding: 0 24px;
+  }
+
+  /* =========================================
+     TRUSTED BY — CARRUSEL (NO TOCAR ANIMACIÓN)
+     ========================================= */
+
+  .trusted35-wrap {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .trusted35-marquee {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+    background: transparent;
+  }
+
+  .trusted35-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+
+  .trusted35-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    will-change: transform;
+    transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    animation: trusted35Scroll 22s linear infinite;
+  }
+   #experiencia{
+    scroll-margin-top: 180px; /* sube/baja este valor */
+  }
+
+  /* opcional: para todas las secciones ancladas */
+  #servicios, #testimonios, #contacto{
+    scroll-margin-top: 120px;
+  }
+
+  .trusted35-item {
+    flex: 0 0 auto;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .trusted35-logo {
+    height: 100%;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    opacity: 0.95;
+    filter: grayscale(20%);
+    transition: transform .2s ease, opacity .2s ease, filter .2s ease;
+  }
+
+  .trusted35-item:hover .trusted35-logo {
+    transform: scale(1.06);
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  @media (max-width: 768px) {
+    .trusted35-item { height: 72px; }
+    .trusted35-logo { height: 100%; width: auto; }
+  }
+
+  @keyframes trusted35Scroll {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+}

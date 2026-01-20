@@ -1,82 +1,92 @@
 @layer components {
-  /* =========================
-     CONTACT 35MM
-     ========================= */
-
   .contact35 {
     position: relative;
-    padding: 110px 0;
+    padding: 96px 0;
     overflow: hidden;
     background:
-      radial-gradient(circle at 20% 20%, rgba(69,182,137,.18), transparent 55%),
-      radial-gradient(circle at 80% 30%, rgba(166,198,127,.18), transparent 55%),
+      radial-gradient(circle at 20% 20%, rgba(69,182,137,.16), transparent 55%),
+      radial-gradient(circle at 80% 30%, rgba(166,198,127,.16), transparent 55%),
       linear-gradient(180deg, #f7faf8, #eef4f0);
+
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
   }
 
-  /* ===== FLOATING BLOBS ===== */
+  .contact35-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* blobs */
   .contact35-float {
     position: absolute;
     width: 420px;
     height: 420px;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: .45;
+    opacity: .40;
     animation: floatSlow 14s ease-in-out infinite;
     z-index: 0;
   }
 
-  .contact35-float-a {
-    background: #45b689;
-    top: -120px;
-    left: -120px;
-  }
-
-  .contact35-float-b {
-    background: #a6c67f;
-    bottom: -160px;
-    right: -120px;
-    animation-delay: 3s;
-  }
-
-  .contact35-float-c {
-    background: #436865;
-    top: 40%;
-    right: -160px;
-    animation-delay: 6s;
-  }
+  .contact35-float-a { background: #45b689; top: -120px; left: -120px; }
+  .contact35-float-b { background: #a6c67f; bottom: -160px; right: -120px; animation-delay: 3s; }
+  .contact35-float-c { background: #436865; top: 40%; right: -160px; animation-delay: 6s; }
 
   @keyframes floatSlow {
     0%,100% { transform: translateY(0) translateX(0); }
     50% { transform: translateY(-40px) translateX(30px); }
   }
 
-  /* ===== GRID ===== */
+  /* GRID */
   .contact35-grid {
     display: grid;
-    gap: 64px;
+    gap: 38px;
   }
 
   @media (min-width: 1024px) {
     .contact35-grid {
       grid-template-columns: 1fr 1fr;
-      align-items: center;
+      align-items: start;
+      gap: 64px;
     }
   }
 
-  /* ===== LEFT ===== */
+  /* LEFT */
+  .contact35-headBox{
+    display: inline-block;
+    padding: 18px 22px;
+    border-radius: 22px;
+    max-width: 560px;
+
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(2,4,3,0.08);
+
+    backdrop-filter: blur(16px) saturate(1.05);
+    -webkit-backdrop-filter: blur(16px) saturate(1.05);
+
+    box-shadow:
+      0 18px 54px rgba(0,0,0,0.10),
+      inset 0 1px 0 rgba(255,255,255,0.85);
+  }
+
   .contact35-kicker {
+    display:block;
     font-weight: 900;
     letter-spacing: .14em;
     font-size: 12px;
     color: #1f6f55;
     text-transform: uppercase;
+    margin-bottom: 6px;
   }
 
   .contact35-title {
-    font-size: 52px;
+    font-size: 46px;
     font-weight: 950;
-    margin-top: 12px;
     color: #0b1412;
+    line-height: 1.05;
+    margin: 0;
   }
 
   .contact35-title span {
@@ -86,27 +96,33 @@
   }
 
   .contact35-sub {
-    margin-top: 16px;
-    max-width: 420px;
+    margin-top: 12px;
+    max-width: 520px;
     color: rgba(11,20,18,.72);
     line-height: 1.7;
   }
 
   .contact35-info {
-    margin-top: 36px;
+    margin-top: 26px;
     display: grid;
-    gap: 22px;
+    gap: 14px;
   }
 
   .contact35-infoItem {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     align-items: center;
+    padding: 12px 12px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.50);
+    border: 1px solid rgba(2,4,3,0.06);
+    backdrop-filter: blur(10px);
   }
 
   .contact35-infoItem p {
-    font-weight: 800;
+    font-weight: 900;
     margin: 0;
+    color: rgba(11,20,18,.88);
   }
 
   .contact35-infoItem span {
@@ -115,115 +131,165 @@
   }
 
   .contact35-iconBox {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     border-radius: 14px;
-    background: rgba(255,255,255,.7);
+    background: rgba(255,255,255,.78);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 14px 30px rgba(0,0,0,.12);
+    box-shadow: 0 12px 26px rgba(0,0,0,.10);
     color: #1f6f55;
+    flex: 0 0 auto;
   }
 
-  /* ===== FORM CARD ===== */
+  .contact35-micro{
+    margin-top: 14px;
+    color: rgba(11,20,18,.60);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* FORM */
   .contact35-card {
-    background: rgba(255,255,255,.7);
+    background: rgba(255,255,255,.72);
     border-radius: 28px;
-    padding: 36px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 30px 90px rgba(0,0,0,.18);
+    padding: 22px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 22px 70px rgba(0,0,0,.14);
+    border: 1px solid rgba(2,4,3,0.06);
+  }
+
+  @media (min-width: 768px){
+    .contact35-card{ padding: 32px; }
   }
 
   .contact35-card h3 {
-    font-size: 26px;
-    font-weight: 900;
+    font-size: 22px;
+    font-weight: 950;
     margin-bottom: 6px;
+    color: rgba(11,20,18,.92);
   }
 
   .contact35-card p {
     font-size: 14px;
-    color: rgba(11,20,18,.65);
-    margin-bottom: 26px;
+    color: rgba(11,20,18,.62);
+    margin-bottom: 16px;
   }
 
   .contact35-card form {
     display: grid;
-    gap: 16px;
+    gap: 14px;
+  }
+
+  /* ✅ dos columnas solo en pantallas con espacio */
+  .contact35-row2{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 640px){
+    .contact35-row2{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact35-field{
+    display:grid;
+    gap: 6px;
+  }
+  .contact35-field span{
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .02em;
+    color: rgba(11,20,18,.72);
   }
 
   .contact35-card input,
   .contact35-card textarea {
-    padding: 14px 16px;
+    padding: 14px 14px;
     border-radius: 14px;
     border: 1px solid rgba(0,0,0,.08);
-    background: rgba(255,255,255,.95);
+    background: rgba(255,255,255,.96);
     outline: none;
-    transition: box-shadow .25s ease, transform .25s ease;
+    transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+    font-size: 16px; /* ✅ Android: evita zoom raro */
   }
 
   .contact35-card input:focus,
   .contact35-card textarea:focus {
     transform: translateY(-1px);
-    box-shadow: 0 0 0 3px rgba(69,182,137,.35);
+    border-color: rgba(69,182,137,.45);
+    box-shadow: 0 0 0 3px rgba(69,182,137,.30);
   }
 
   .contact35-card button {
-    margin-top: 8px;
-    padding: 16px;
-    border-radius: 9999px;
+    margin-top: 4px;
+    padding: 14px 16px;
+    border-radius: 16px; /* ✅ menos pill, más pro */
     border: none;
-    font-weight: 900;
+    font-weight: 950;
     background: linear-gradient(90deg,#a6c67f,#45b689,#1f6f55);
-    color: #0b1412;
+    color: rgba(11,20,18,.95);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
-    box-shadow: 0 22px 60px rgba(0,0,0,.25);
-    transition: transform .25s ease;
+    box-shadow: 0 18px 50px rgba(0,0,0,.18);
+    transition: transform .2s ease;
   }
 
-  .contact35-card button:hover {
-    transform: translateY(-2px);
+  .contact35-card button:hover { transform: translateY(-2px); }
+
+  .contact35-privacy{
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgba(11,20,18,.52);
+    line-height: 1.45;
   }
 
-  /* ===== REVEAL ===== */
-  .contact35 {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity .8s ease, transform .8s ease;
+  /* ✅ MOBILE OVERRIDES (Android) */
+  @media (max-width: 640px){
+    .contact35{ padding: 78px 0; }
+
+    /* menos blur/peso */
+    .contact35-float{
+      width: 360px;
+      height: 360px;
+      filter: blur(70px);
+      opacity: .28;
+    }
+
+    .contact35-headBox{
+      max-width: 100%;
+      padding: 16px 18px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+    }
+
+    .contact35-title{ font-size: 38px; }
+    .contact35-sub{ max-width: 100%; }
+
+    .contact35-card{
+      padding: 18px;
+      border-radius: 22px;
+      box-shadow: 0 18px 52px rgba(0,0,0,.12);
+    }
+
+    .contact35-infoItem{
+      padding: 10px 10px;
+      border-radius: 16px;
+    }
+
+    /* deja espacio para botón WhatsApp flotante */
+    .contact35-card button{
+      padding: 14px 14px;
+      border-radius: 16px;
+    }
   }
 
-  .contact35-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .contact35-headBox{
-    display: inline-block;
-    padding: 18px 22px;
-    border-radius: 22px;
-    max-width: fit-content;
-
-    background: rgba(255,255,255,0.62);
-    border: 1px solid rgba(2,4,3,0.08);
-
-    backdrop-filter: blur(18px) saturate(1.05);
-    -webkit-backdrop-filter: blur(18px) saturate(1.05);
-
-    box-shadow:
-      0 20px 60px rgba(0,0,0,0.12),
-      inset 0 1px 0 rgba(255,255,255,0.85);
-  }
-
-  /* Ajustes internos para que no se vea apretado */
-  .contact35-headBox .contact35-kicker{
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .contact35-headBox .contact35-title{
-    margin-top: 0;
+  @media (prefers-reduced-motion: reduce){
+    .contact35-float{ animation: none !important; }
   }
 }

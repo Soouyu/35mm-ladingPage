@@ -28,20 +28,23 @@ const TrustedBySection = () => {
     (item, index, arr) => arr.findIndex((x) => x.src === item.src) === index
   );
 
+  // ✅ NO TOCAR: loop para animación infinita
   const loopLogos = [...uniqueLogos, ...uniqueLogos];
 
   return (
-    <section
-      className="relative py-16 overflow-hidden"
-      data-aos="fade-up"
-      data-aos-duration="900"
-    >
-      <div className="absolute inset-0 -z-10 about35-bg" />
+   <section
+  id="experiencia"
+  className="trusted35-sec"
+  data-aos="fade-up"
+  data-aos-duration="900"
+>
+      {/* ✅ Fondo premium (NO afecta el carrusel) */}
+      <div className="trusted35-bgPro" aria-hidden="true" />
 
       <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="trusted35-headPro">
           <p
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/10 border border-black/10 text-black/80 backdrop-blur text-sm font-medium"
+            className="trusted35-pillPro"
             data-aos="zoom-in"
             data-aos-delay="120"
             data-aos-duration="700"
@@ -50,45 +53,32 @@ const TrustedBySection = () => {
           </p>
 
           <h3
-            className="mt-5 text-2xl md:text-3xl font-extrabold text-[#0b1412]"
+            className="trusted35-titlePro"
             data-aos="fade-up"
             data-aos-delay="200"
             data-aos-duration="900"
           >
-            Empresas que confían en nosotros
+            Marcas que apuestan por ideas valientes
           </h3>
 
           <p
-            className="mt-3 text-[#0b1412]/70 max-w-2xl mx-auto"
+            className="trusted35-subPro"
             data-aos="fade-up"
             data-aos-delay="280"
             data-aos-duration="900"
           >
-            Marcas que nos han permitido crear, romper paradigmas y construir experiencias
-            que se sienten.
+            Cada logo aquí representa un reto que convertimos en resultados: identidad,
+            campañas y contenido que se siente profesional desde el primer contacto.
           </p>
         </div>
       </div>
 
-      <div
-        className="trusted35-wrap mt-10"
-        data-aos="fade-up"
-        data-aos-delay="360"
-        data-aos-duration="900"
-      >
+      {/* ✅ NO TOCAR: carrusel */}
+      <div className="trusted35-wrap mt-10" data-aos="fade-up" data-aos-delay="360" data-aos-duration="900">
         <div className="trusted35-marquee trusted35-fade" aria-label="Logos de clientes">
-          <div
-            className="trusted35-track"
-            data-aos="fade-up"
-            data-aos-delay="420"
-            data-aos-duration="900"
-          >
+          <div className="trusted35-track" data-aos="fade-up" data-aos-delay="420" data-aos-duration="900">
             {loopLogos.map((logo, i) => (
-              <div
-                key={`${logo.src}-${i}`}
-                className="trusted35-item"
-                title={logo.alt}
-              >
+              <div key={`${logo.src}-${i}`} className="trusted35-item" title={logo.alt}>
                 <img
                   src={logo.src}
                   alt={logo.alt}
@@ -102,7 +92,7 @@ const TrustedBySection = () => {
         </div>
 
         <p
-          className="mt-4 text-xs text-[#0b1412]/55 text-center px-6"
+          className="trusted35-notePro"
           data-aos="fade-up"
           data-aos-delay="520"
           data-aos-duration="900"

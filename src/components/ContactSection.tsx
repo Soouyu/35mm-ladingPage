@@ -3,7 +3,7 @@ import { Send, MapPin, Mail, Phone } from "lucide-react";
 import { toast } from "sonner";
 
 const ContactSection = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -13,7 +13,6 @@ const ContactSection = () => {
     mensaje: "",
   });
 
-  /* Reveal on scroll */
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -22,21 +21,22 @@ const ContactSection = () => {
           obs.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.22, rootMargin: "120px 0px" } // ✅ mejor en móvil
     );
 
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("¡Mensaje enviado! Te contactaremos pronto.");
+    toast.success("¡Listo! Recibimos tu mensaje. Te respondemos pronto.");
     setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
   };
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
     <section
@@ -44,7 +44,7 @@ const ContactSection = () => {
       ref={sectionRef}
       className={`contact35 ${visible ? "contact35-in" : ""}`}
     >
-      {/* blobs flotantes */}
+      {/* blobs */}
       <div className="contact35-float contact35-float-a" />
       <div className="contact35-float contact35-float-b" />
       <div className="contact35-float contact35-float-c" />
@@ -53,19 +53,16 @@ const ContactSection = () => {
         <div className="contact35-grid">
           {/* LEFT */}
           <div className="contact35-left">
-  <div className="contact35-headBox">
-    <span className="contact35-kicker">Contacto</span>
-
-    <h2 className="contact35-title">
-      ¿Listo para <span>crecer?</span>
-    </h2>
-  </div>
-
-
-            <p className="contact35-sub">
-              Cuéntanos sobre tu proyecto. Te proponemos una estrategia clara,
-              medible y enfocada en resultados reales.
-            </p>
+            <div className="contact35-headBox">
+              <span className="contact35-kicker">Contacto</span>
+              <h2 className="contact35-title">
+                Hablemos de tu <span>marca</span>
+              </h2>
+              <p className="contact35-sub">
+                Cuéntanos qué necesitas. Te respondemos con una idea clara y los
+                siguientes pasos.
+              </p>
+            </div>
 
             <div className="contact35-info">
               <div className="contact35-infoItem">
@@ -93,53 +90,80 @@ const ContactSection = () => {
                   <Phone />
                 </div>
                 <div>
-                  <p>Teléfono</p>
+                  <p>WhatsApp</p>
                   <span>+593 099 287 2056</span>
                 </div>
               </div>
             </div>
+
+            <p className="contact35-micro">
+              Tip: si puedes, incluye <b>objetivo</b>, <b>fecha</b> y <b>presupuesto</b>.
+            </p>
           </div>
 
           {/* RIGHT */}
           <div className="contact35-card">
-            <h3>Hablemos de tu proyecto</h3>
-            <p>Te respondemos con una propuesta clara y siguientes pasos.</p>
+            <h3>Envíanos tu mensaje</h3>
+            <p>Te respondemos con propuesta y siguiente paso.</p>
 
             <form onSubmit={handleSubmit}>
-              <input
-                name="nombre"
-                placeholder="Nombre completo"
-                value={formData.nombre}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="email"
-                type="email"
-                placeholder="Correo electrónico"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="telefono"
-                placeholder="Teléfono"
-                value={formData.telefono}
-                onChange={handleChange}
-              />
-              <textarea
-                name="mensaje"
-                placeholder="Cuéntanos sobre tu proyecto…"
-                rows={4}
-                value={formData.mensaje}
-                onChange={handleChange}
-                required
-              />
+              <div className="contact35-row2">
+                <label className="contact35-field">
+                  <span>Nombre</span>
+                  <input
+                    name="nombre"
+                    placeholder="Tu nombre"
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    autoComplete="name"
+                    required
+                  />
+                </label>
+
+                <label className="contact35-field">
+                  <span>Email</span>
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="tu@email.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    autoComplete="email"
+                    required
+                  />
+                </label>
+              </div>
+
+              <label className="contact35-field">
+                <span>Teléfono (opcional)</span>
+                <input
+                  name="telefono"
+                  placeholder="Tu numero"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  autoComplete="tel"
+                />
+              </label>
+
+              <label className="contact35-field">
+                <span>Mensaje</span>
+                <textarea
+                  name="mensaje"
+                  placeholder="Cuéntanos qué necesitas (branding, video, publicidad, etc.)"
+                  rows={5}
+                  value={formData.mensaje}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
 
               <button type="submit">
-                Enviar mensaje
-                <Send />
+                Enviar mensaje <Send />
               </button>
+
+              <p className="contact35-privacy">
+                Al enviar, aceptas que te contactemos para responder tu solicitud.
+              </p>
             </form>
           </div>
         </div>
