@@ -116,7 +116,7 @@ export default function ResultsClosingSection() {
   }, []);
 
   return (
-    <section className="rcx3" id="resultados">
+    <section className="rcx3" id="como?">
       {/* BG */}
       <div className="rcx3-bg" aria-hidden="true">
         <div className="rcx3-blob rcx3-blob-a" />

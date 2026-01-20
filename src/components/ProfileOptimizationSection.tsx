@@ -3,7 +3,7 @@ import guiaInstagram from "./assets/publicaciones.jpg";
 
 const ProfileOptimizationSection = () => {
   return (
-    <section id="guia-instagram" className="igx">
+    <section id="diagnostico" className="igx">
       <div className="igx-container">
         <div className="igx-grid">
           {/* LEFT */}

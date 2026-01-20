@@ -7,10 +7,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "#servicios", label: "Servicios" },
+    { href: "#diagnostico", label: "Diagnostico" },
     { href: "#experiencia", label: "Experiencia" },
-    { href: "#testimonios", label: "Testimonios" },
-    { href: "#contacto", label: "Contacto" },
+    { href: "#servicios", label: "Servicios" },
+    { href: "#como?", label: "Cómo trabajamos?" },
   ];
 
   // ✅ lock scroll (safe para TS/SSR)
